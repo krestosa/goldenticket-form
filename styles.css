@@ -3190,9 +3190,9 @@ body.has-open-modal {
 
 @media (max-width: 760px) {
   .claim-hero {
-    min-height: 100vh;
-    height: 100vh;
-    max-height: 100vh;
+    min-height: 100svh;
+    height: 100dvh;
+    max-height: 100dvh;
   }
 
   .claim-hero__inner {

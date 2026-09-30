@@ -1,20 +1,6 @@
-/*
- * Golden Ticket — configuración de integración
- *
- * Para conectar backend:
- * 1. Cambiar backend.mode a "api".
- * 2. Definir backend.endpoint.
- * 3. Ajustar emailField y codePath si la API usa otros nombres.
- *
- * Request esperado por defecto:
- *   POST { "email": "persona@correo.com" }
- *
- * Response esperado por defecto:
- *   { "code": "ABC123" }
- */
 window.GOLDEN_TICKET_CONFIG = Object.freeze({
   backend: {
-    mode: "mock", // "mock" | "api"
+    mode: "mock",
     endpoint: "",
     method: "POST",
     emailField: "email",

@@ -3929,6 +3929,9 @@ body.has-open-modal {
 
   .code-modal__backdrop {
     opacity: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    will-change: opacity;
     transition:
       opacity var(--sheet-motion-duration) var(--sheet-motion-easing);
   }
@@ -3951,6 +3954,9 @@ body.has-open-modal {
     transition:
       transform var(--sheet-motion-duration) var(--sheet-motion-easing);
     will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overscroll-behavior: contain;
   }
 
   .code-modal.is-open .code-modal__panel {

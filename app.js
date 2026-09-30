@@ -13,6 +13,7 @@
     error: document.getElementById("claimError"),
     modal: document.getElementById("codeModal"),
     panel: document.querySelector(".code-modal__panel"),
+    backdrop: document.querySelector(".code-modal__backdrop"),
     dragHandle: document.querySelector("[data-sheet-drag-handle]"),
     code: document.getElementById("generatedCode"),
     emailLabel: document.getElementById("generatedEmail"),
@@ -27,6 +28,7 @@
     !elements.email ||
     !elements.modal ||
     !elements.panel ||
+    !elements.backdrop ||
     !elements.code ||
     !elements.emailLabel ||
     !elements.copy ||
@@ -141,13 +143,28 @@
     state.previousFocus = document.activeElement;
     elements.modal.style.removeProperty("--sheet-drag-y");
     elements.modal.style.removeProperty("--sheet-scrim-opacity");
-    elements.modal.classList.remove("is-dragging");
+    elements.panel.style.removeProperty("transform");
+    elements.backdrop.style.removeProperty("opacity");
+    elements.modal.classList.remove("is-dragging", "is-open");
     elements.modal.hidden = false;
     document.body.classList.add("has-open-modal");
 
+    const focusCopy = () => {
+      if (elements.modal.classList.contains("is-open")) {
+        elements.copy.focus({ preventScroll: true });
+      }
+    };
+
     requestAnimationFrame(() => {
-      elements.modal.classList.add("is-open");
-      elements.copy.focus();
+      requestAnimationFrame(() => {
+        elements.modal.classList.add("is-open");
+
+        if (mobileSheet.matches) {
+          window.setTimeout(focusCopy, CONFIG.ui.modalTransitionMs);
+        } else {
+          focusCopy();
+        }
+      });
     });
   };
 
@@ -160,6 +177,8 @@
       elements.modal.classList.remove("is-dragging");
       elements.modal.style.removeProperty("--sheet-drag-y");
       elements.modal.style.removeProperty("--sheet-scrim-opacity");
+      elements.panel.style.removeProperty("transform");
+      elements.backdrop.style.removeProperty("opacity");
 
       if (state.previousFocus instanceof HTMLElement) {
         state.previousFocus.focus();
@@ -181,32 +200,51 @@
     lastY: 0,
     lastTime: 0,
     velocityY: 0,
-    distance: 0
+    distance: 0,
+    height: 1,
+    pendingDistance: 0,
+    rafId: 0
   };
 
   const setSheetDrag = (distance) => {
     const clamped = Math.max(0, distance);
-    const height = Math.max(elements.panel.offsetHeight, 1);
-    const progress = Math.min(clamped / height, 1);
+    const progress = Math.min(clamped / Math.max(drag.height, 1), 1);
     const scrimOpacity = Math.max(0, 1 - progress * 1.35);
 
     drag.distance = clamped;
-    elements.modal.style.setProperty("--sheet-drag-y", clamped + "px");
-    elements.modal.style.setProperty("--sheet-scrim-opacity", String(scrimOpacity));
+    elements.panel.style.transform = `translate3d(0, ${clamped}px, 0)`;
+    elements.backdrop.style.opacity = String(scrimOpacity);
+  };
+
+  const scheduleSheetDrag = (distance) => {
+    drag.pendingDistance = distance;
+
+    if (drag.rafId) return;
+
+    drag.rafId = requestAnimationFrame(() => {
+      drag.rafId = 0;
+      setSheetDrag(drag.pendingDistance);
+    });
+  };
+
+  const flushSheetDrag = () => {
+    if (!drag.rafId) return;
+
+    cancelAnimationFrame(drag.rafId);
+    drag.rafId = 0;
+    setSheetDrag(drag.pendingDistance);
   };
 
   const resetSheetDrag = () => {
-    elements.modal.classList.remove("is-dragging");
-    void elements.panel.offsetHeight;
-    elements.modal.style.setProperty("--sheet-drag-y", "0px");
-    elements.modal.style.setProperty("--sheet-scrim-opacity", "1");
+    if (drag.rafId) {
+      cancelAnimationFrame(drag.rafId);
+      drag.rafId = 0;
+    }
 
-    window.setTimeout(() => {
-      if (!drag.active && elements.modal.classList.contains("is-open")) {
-        elements.modal.style.removeProperty("--sheet-drag-y");
-        elements.modal.style.removeProperty("--sheet-scrim-opacity");
-      }
-    }, CONFIG.ui.modalTransitionMs);
+    drag.pendingDistance = 0;
+    elements.modal.classList.remove("is-dragging");
+    elements.panel.style.removeProperty("transform");
+    elements.backdrop.style.removeProperty("opacity");
   };
 
   const finishSheetDrag = (shouldClose) => {
@@ -220,10 +258,17 @@
     }
 
     drag.pointerId = null;
+
+    if (drag.rafId) {
+      cancelAnimationFrame(drag.rafId);
+      drag.rafId = 0;
+    }
+
     elements.modal.classList.remove("is-dragging");
-    void elements.panel.offsetHeight;
 
     if (shouldClose) {
+      elements.panel.style.removeProperty("transform");
+      elements.backdrop.style.removeProperty("opacity");
       closeModal();
     } else {
       resetSheetDrag();
@@ -248,6 +293,13 @@
     drag.lastTime = performance.now();
     drag.velocityY = 0;
     drag.distance = 0;
+    drag.pendingDistance = 0;
+    drag.height = Math.max(elements.panel.getBoundingClientRect().height, 1);
+
+    if (drag.rafId) {
+      cancelAnimationFrame(drag.rafId);
+      drag.rafId = 0;
+    }
 
     elements.modal.classList.add("is-dragging");
     elements.dragHandle.setPointerCapture(event.pointerId);
@@ -265,15 +317,17 @@
     drag.lastY = event.clientY;
     drag.lastTime = now;
 
-    setSheetDrag(deltaY);
+    scheduleSheetDrag(deltaY);
   };
 
   const onSheetPointerUp = (event) => {
     if (!drag.active || event.pointerId !== drag.pointerId) return;
 
+    flushSheetDrag();
+
     const threshold = Math.min(
       140,
-      Math.max(96, elements.panel.offsetHeight * .28)
+      Math.max(96, drag.height * .28)
     );
 
     const shouldClose =

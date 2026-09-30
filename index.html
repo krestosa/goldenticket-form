@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#030303" />
+  <title>Golden Ticket — Generá tu código</title>
+  <script>document.documentElement.classList.add("has-js");</script>
+  <link rel="preload" href="./assets/bg_hero.mp4?v=20260930-form1" as="video" type="video/mp4" />
+  <link rel="preload" href="./assets/bg_hero_mobile.mp4?v=20260930-form1" as="video" type="video/mp4" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="./styles.css?v=20260930-form6" />
+</head>
+<body class="is-revealed is-instant-reveal">
+  <main class="site-shell" id="site">
+    <section class="campaign-hero claim-hero" aria-labelledby="claimTitle">
+      <video
+        class="campaign-hero__video campaign-hero__video--desktop"
+        src="./assets/bg_hero.mp4?v=20260930-form1"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        aria-hidden="true"
+      ></video>
+
+      <video
+        class="campaign-hero__video campaign-hero__video--mobile"
+        src="./assets/bg_hero_mobile.mp4?v=20260930-form1"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        aria-hidden="true"
+      ></video>
+
+      <header class="campaign-nav">
+        <p class="campaign-nav__side campaign-nav__side--left">GOLDEN TICKET</p>
+
+        <a
+          class="campaign-nav__brands"
+          href="https://www.sushiclub.com.ar/"
+          aria-label="Ir al sitio de SushiClub"
+        >
+          <img
+            class="campaign-nav__sushiclub"
+            src="./assets/sushiclub.svg?v=20260930-form1"
+            width="234"
+            height="34"
+            alt="SushiClub"
+          />
+          <img
+            class="campaign-nav__anniversary"
+            src="./assets/anniversary-25.svg?v=20260930-form1"
+            width="147"
+            height="113"
+            alt="25 Anniversary Edition"
+          />
+        </a>
+
+        <p class="campaign-nav__side campaign-nav__side--right">DELI&amp;TAKE</p>
+      </header>
+
+      <div class="claim-hero__inner">
+        <div class="claim-hero__content">
+          <a
+            class="campaign-hero__mobile-brands"
+            href="https://www.sushiclub.com.ar/"
+            aria-label="Ir al sitio de SushiClub"
+          >
+            <img
+              class="campaign-nav__sushiclub"
+              src="./assets/sushiclub.svg?v=20260930-form1"
+              width="234"
+              height="34"
+              alt="SushiClub"
+            />
+            <img
+              class="campaign-nav__anniversary"
+              src="./assets/anniversary-25.svg?v=20260930-form1"
+              width="147"
+              height="113"
+              alt="25 Anniversary Edition"
+            />
+          </a>
+
+          <h1 class="campaign-title claim-title" id="claimTitle">
+            <span>GOLDEN</span>
+            <span class="campaign-title__gold" data-gold-sheen="TICKET">TICKET</span>
+          </h1>
+
+          <div class="claim-copy">
+            <p class="claim-copy__lead">Dejá tu correo para generar tu código de único uso.</p>
+            <p class="claim-copy__support">Lo vas a necesitar para canjear el beneficio de tu Golden Ticket.</p>
+          </div>
+
+          <form class="claim-form" id="claimForm" novalidate>
+            <label class="sr-only" for="claimEmail">Correo electrónico</label>
+
+            <div class="claim-form__control">
+              <input
+                class="claim-form__input"
+                id="claimEmail"
+                name="email"
+                type="email"
+                inputmode="email"
+                autocomplete="email"
+                placeholder="tu@email.com"
+                required
+              />
+              <button class="claim-form__submit" type="submit">
+                <span>Generar código</span>
+                <i aria-hidden="true">→</i>
+              </button>
+            </div>
+
+            <p class="claim-form__error" id="claimError" role="alert" aria-live="polite"></p>
+          </form>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="code-modal" id="codeModal" hidden>
+    <button class="code-modal__backdrop" type="button" data-close-modal aria-label="Cerrar"></button>
+
+    <section class="code-modal__panel" role="dialog" aria-modal="true" aria-labelledby="codeModalTitle" aria-describedby="codeModalDescription">
+      <div class="code-modal__drag-zone" data-sheet-drag-handle aria-hidden="true"><span></span></div>
+      <button class="code-modal__close" type="button" data-close-modal aria-label="Cerrar"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+      <h2 class="code-modal__title" id="codeModalTitle">TU CÓDIGO</h2>
+      <p class="code-modal__description" id="codeModalDescription">Guardalo. Este código está pensado para utilizarse una sola vez.</p>
+
+      <button class="code-modal__code" id="generatedCode" type="button" aria-live="polite" aria-label="Copiar código">GOLD25</button>
+      <p class="code-modal__email" id="generatedEmail"></p>
+
+      <div class="code-modal__actions">
+        <button class="code-action code-action--primary" id="copyCode" type="button">COPIAR CÓDIGO</button>
+        <button class="code-action" id="downloadPdf" type="button">GENERAR PDF</button>
+      </div>
+
+      <p class="code-modal__status" id="codeStatus" aria-live="polite"></p>
+    </section>
+  </div>
+  <script src="./config.js?v=20260930-form6"></script>
+  <script src="./assets/logos-data.js?v=20260930-form4"></script>
+  <script src="./app.js?v=20260930-form6"></script>
+</body>
+</html>

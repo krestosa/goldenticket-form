@@ -546,52 +546,52 @@
     const content = [
       "q",
       "0.035 0.043 0.059 rg",
-      "0 0 595 842 re f",
+      "0 0 360 500 re f",
       "Q",
 
       "q",
-      "84 0 0 12.2 68 756 cm",
+      "64 0 0 9.3 28 460 cm",
       "/Im1 Do",
       "Q",
 
       "q",
-      "28 0 0 21.5 499 751 cm",
+      "21 0 0 16.1 311 456 cm",
       "/Im2 Do",
       "Q",
 
       "BT",
-      "/F2 30 Tf",
-      "1 1 1 rg",
-      "68 690 Td",
+      "/F2 15 Tf",
+      "0.72 0.74 0.77 rg",
+      "28 414 Td",
       "(" + pdfLiteral("GOLDEN TICKET") + ") Tj",
       "ET",
 
       "BT",
-      "/F2 11 Tf",
+      "/F2 10 Tf",
       "0.776 0.58 0.329 rg",
-      "68 625 Td",
+      "28 380 Td",
       "(" + pdfLiteral("CÓDIGO DE ÚNICO USO") + ") Tj",
       "ET",
 
       "BT",
-      "/F2 64 Tf",
+      "/F2 62 Tf",
       "1 1 1 rg",
-      "68 540 Td",
+      "28 308 Td",
       "(" + pdfLiteral(code) + ") Tj",
       "ET",
 
       "BT",
-      "/F1 13 Tf",
+      "/F1 10 Tf",
       "0.72 0.74 0.77 rg",
-      "68 470 Td",
-      "(" + pdfLiteral("Guardalo para tu canje. Este código se utiliza una sola vez.") + ") Tj",
+      "28 264 Td",
+      "(" + pdfLiteral("Guardalo para tu canje. Se utiliza una sola vez.") + ") Tj",
       "ET",
 
       ...(email ? [
         "BT",
-        "/F1 11 Tf",
+        "/F1 9 Tf",
         "0.58 0.60 0.63 rg",
-        "68 430 Td",
+        "28 238 Td",
         "(" + pdfLiteral(email) + ") Tj",
         "ET"
       ] : [])
@@ -609,7 +609,7 @@
 
     startObject(3);
     pushText(
-      "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842]" +
+      "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 360 500]" +
       " /Resources <<" +
       " /XObject << /Im1 4 0 R /Im2 5 0 R >>" +
       " /Font << /F1 6 0 R /F2 7 0 R >>" +

@@ -3547,10 +3547,10 @@ body.has-open-modal {
 
 .code-modal__title {
   max-width: calc(100% - 48px);
-  font-size: clamp(2.15rem, 4.8vw, 3rem);
+  font-size: clamp(1.35rem, 2.4vw, 1.7rem);
   font-weight: 650;
-  line-height: .98;
-  letter-spacing: -.035em;
+  line-height: 1;
+  letter-spacing: -.025em;
 }
 
 .code-modal__description {
@@ -3706,7 +3706,7 @@ body.has-open-modal {
   }
 
   .code-modal__title {
-    font-size: clamp(2.05rem, 9.6vw, 2.7rem);
+    font-size: clamp(1.25rem, 5.4vw, 1.55rem);
   }
 
   .code-modal__description {

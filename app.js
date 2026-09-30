@@ -546,44 +546,44 @@
     const content = [
       "q",
       "0.035 0.043 0.059 rg",
-      "0 0 250 540 re f",
+      "0 0 250 420 re f",
       "Q",
 
       "q",
-      "54 0 0 7.8 20 500 cm",
+      "54 0 0 7.8 20 380 cm",
       "/Im1 Do",
       "Q",
 
       "q",
-      "18 0 0 13.8 212 496 cm",
+      "18 0 0 13.8 212 376 cm",
       "/Im2 Do",
       "Q",
 
       "BT",
       "/F2 12 Tf",
       "0.72 0.74 0.77 rg",
-      "20 458 Td",
+      "20 338 Td",
       "(" + pdfLiteral("GOLDEN TICKET") + ") Tj",
       "ET",
 
       "BT",
       "/F2 9 Tf",
       "0.776 0.58 0.329 rg",
-      "20 428 Td",
+      "20 308 Td",
       "(" + pdfLiteral("CÓDIGO DE ÚNICO USO") + ") Tj",
       "ET",
 
       "BT",
       "/F2 48 Tf",
       "1 1 1 rg",
-      "20 366 Td",
+      "20 246 Td",
       "(" + pdfLiteral(code) + ") Tj",
       "ET",
 
       "BT",
       "/F1 9 Tf",
       "0.72 0.74 0.77 rg",
-      "20 327 Td",
+      "20 207 Td",
       "(" + pdfLiteral("Guardalo para tu canje. Se utiliza una sola vez.") + ") Tj",
       "ET",
 
@@ -591,7 +591,7 @@
         "BT",
         "/F1 8 Tf",
         "0.58 0.60 0.63 rg",
-        "20 302 Td",
+        "20 182 Td",
         "(" + pdfLiteral(email) + ") Tj",
         "ET"
       ] : [])
@@ -609,7 +609,7 @@
 
     startObject(3);
     pushText(
-      "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 250 540]" +
+      "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 250 420]" +
       " /Resources <<" +
       " /XObject << /Im1 4 0 R /Im2 5 0 R >>" +
       " /Font << /F1 6 0 R /F2 7 0 R >>" +
